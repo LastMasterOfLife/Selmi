@@ -6,7 +6,9 @@ import 'package:prove/Screens/Home_Screen.dart';
 import 'package:prove/Screens/Register_main_screen.dart';
 import 'package:prove/ScreensAdmin/Product_main_screen_admin.dart';
 import 'package:prove/ScreensGuest/Qr_scan_main_screen_guest.dart';
+ //import 'package:shared_preferences/shared_preferences.dart';
 import 'package:prove/Colors/color_palette.dart';
+
 
 class LoginScreen extends StatefulWidget {
   final String name;
@@ -30,6 +32,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final DatabaseReference _database = FirebaseDatabase.instance.ref();
+
+  late String finaluser;
+  late String finalpass;
   String _data = "Nessun dato ancora"; // Inizializzo il testo di default
 
   @override
@@ -38,11 +43,24 @@ class _LoginScreenState extends State<LoginScreen> {
     _readData();
   }
 
+  /*
+  Future getPreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var usernamePref = prefs.getString('username');
+    var passwordPref = prefs.getString('password');
+    setState(() {
+      finaluser = usernamePref!;
+      finalpass = passwordPref!;
+    });
+  }
+
+   */
+
   // Funzione per scrivere dati nel database
   Future<void> _writeData() async {
     await _database.child('users').child('user1').set({
-      'username': 'PORCO',
-      'email': 'DIO',
+      'username': 'ciao',
+      'email': 'bello',
     });
     print('Dati scritti nel database!');
   }
@@ -73,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _checkInput() {
     final username = _usernameInput.text;
     final password = _passwordInput.text;
+    //getPreferences();
 
     if (username == user && password == user) {
       _navigateTo(HomeScreen(
@@ -94,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: widget.password,
         serialcode: widget.serialcode,
       ));
-    } else if (username == widget.username && password == widget.password) {
+    } else if (username == finaluser && password == finalpass) {
       _navigateTo(HomeScreen(
         accesso: 'user',
         name: widget.name,
@@ -150,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
             buildTextField(
               _passwordInput,
               'Password',
-              obscureText: true,
+              obscureText: _obscureText,
               suffixIcon: IconButton(
                 icon: Image.asset(
                   _obscureText

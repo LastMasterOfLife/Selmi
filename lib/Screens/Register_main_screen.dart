@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prove/Colors/color_palette.dart';
 import 'package:prove/Screens/Login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'Home_Screen.dart';
 
 class RegisterMainScreen extends StatefulWidget {
@@ -19,9 +20,11 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
   final TextEditingController _passwordInputR = TextEditingController();
   final TextEditingController _serialCodeInput = TextEditingController();
 
+
   bool _obscureText = true;
 
   Future<void> _regist() async {
+
     // Recupera i dati dagli input
     String name = _nameInput.text;
     String surname = _surnameInput.text;
@@ -29,6 +32,14 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
     String email = _emailInput.text;
     String password = _passwordInputR.text;
     String serialCode = _serialCodeInput.text;
+/*
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('UserInfo', <String>[name, surname, username, email, password, serialCode]);
+    prefs.setString('username', username);
+    prefs.setString('password', password);
+
+
+ */
 
     // Naviga alla schermata di Login
     Navigator.push(
@@ -68,7 +79,7 @@ class _RegisterMainScreenState extends State<RegisterMainScreen> {
               buildTextField(
                 _passwordInputR,
                 "Password",
-                obscureText: true,
+                obscureText: _obscureText,
                 suffixIcon: IconButton(
                   icon: Image.asset(
                     _obscureText

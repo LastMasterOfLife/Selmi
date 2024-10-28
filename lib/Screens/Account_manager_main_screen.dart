@@ -16,14 +16,21 @@ class AccountManagerMainScreen extends StatefulWidget {
 
 class _AccountManagerMainScreenState extends State<AccountManagerMainScreen> {
 
-  bool _obscureText = true;
+  bool _obscureSurname = true;
+  bool _obscureUsernmae = true;
   final _nomeText = TextEditingController();
   final _surnameText = TextEditingController();
   final _usernameText = TextEditingController();
 
-  void _togglePasswordVisibility() {
+  void _toggleSurnaneVisibility() {
     setState(() {
-      _obscureText = !_obscureText;
+      _obscureSurname = !_obscureSurname;
+    });
+  }
+
+  void _toggleUsernameVisibility() {
+    setState(() {
+      _obscureUsernmae = !_obscureUsernmae;
     });
   }
 
@@ -51,28 +58,28 @@ class _AccountManagerMainScreenState extends State<AccountManagerMainScreen> {
               SizedBox(height: 20),
               buildTextField(_nomeText, 'Name', widget.name, obscureText: false),
               SizedBox(height: 10),
-              buildTextField(_surnameText, 'Surname',widget.surname, obscureText: true,
+              buildTextField(_surnameText, 'Surname',widget.surname, obscureText: _obscureSurname,
                 suffixIcon: IconButton(
                   icon: Image.asset(
-                    _obscureText
+                    _obscureSurname
                         ? 'assets/images/eye_off_icon.png'
                         : 'assets/images/eye_on_icon.png',
                     width: sizeImage,
                     height: sizeImage,
                   ),
-                  onPressed: _togglePasswordVisibility,
+                  onPressed: _toggleSurnaneVisibility,
                 ),),
               SizedBox(height: 10),
-              buildTextField(_usernameText, 'Username',widget.username, obscureText:  true,
+              buildTextField(_usernameText, 'Username',widget.username, obscureText:  _obscureUsernmae,
                 suffixIcon: IconButton(
                 icon: Image.asset(
-                  _obscureText
+                  _obscureUsernmae
                       ? 'assets/images/eye_off_icon.png'
                       : 'assets/images/eye_on_icon.png',
                   width: sizeImage,
                   height: sizeImage,
                 ),
-                onPressed: _togglePasswordVisibility,
+                onPressed: _toggleUsernameVisibility,
               ),),
               SizedBox(height: 290,),
               Center(
