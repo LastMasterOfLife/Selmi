@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "614646612326",
+    "project_id": "selmi-4aaf0",
+    "storage_bucket": "selmi-4aaf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614646612326:android:1189f2dda3c4fcee1e08a7",
+        "android_client_info": {
+          "package_name": "com.example.prove"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD96jRtrhpMh_Z2ZKNv3l9b77j3jXFco2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
