@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prove/Colors/color_palette.dart';
-import 'package:barcode_scan2/barcode_scan2.dart';
+//import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:prove/Screens/barcode_scanner.dart';
 import 'package:prove/ScreensGuest/Scan_product_screen_guest.dart';
 
 import '../Screens/Product_main_screen.dart';
@@ -15,6 +16,42 @@ class QrScanMainScreenGuest extends StatefulWidget {
 
 class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
 
+  Widget _buildItem(BuildContext context, String label, Widget page) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => page,
+              ),
+            );
+          },
+          child: Text(label),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Mobile Scanner Example')),
+      body: Center(
+        child: ListView(
+          children: [
+            _buildItem(
+              context,
+              'MobileScanner Simple',
+              const BarcodeScanner(),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  /*
   String scannedResult = "Nessun risultato";
 
   Future<void> scanBarcode() async {
@@ -53,7 +90,9 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
               Image.asset("assets/images/crop_free.png"),
               SizedBox(height: 80,),
               ElevatedButton(
-                onPressed: scanBarcode,
+                onPressed: (){
+                  BarcodeScannerSimple();
+                },
                 child: const Text('Scansiona QR Code'),
               ),
               const SizedBox(height: 20),
@@ -90,4 +129,6 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
       ),
     );
   }
+
+   */
 }
