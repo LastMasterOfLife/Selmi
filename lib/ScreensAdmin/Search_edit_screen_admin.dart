@@ -22,6 +22,7 @@ class _SearchEditScreenAdminState extends State<SearchEditScreenAdmin> {
   final TextEditingController _search = TextEditingController();
   int? selectedTextIndex; // Indice della selezione corrente
   bool isAscending = true;
+  bool isSearching = false;
   bool isFlipped = false;
   bool showCheckboxes = false; // Variabile per gestire la visibilità delle checkbox
   List<String> filteredOptions = [];
@@ -45,11 +46,35 @@ class _SearchEditScreenAdminState extends State<SearchEditScreenAdmin> {
     'FONTANE DI CIOCCOLATO'
   ];
 
+  final List<String> AllOptions = [
+    'TEMPERAGGIO(categoria)', 'RICOPERTURA PRODOTTI CON IL CIOCCOLATO(categoria)', 'MODELLAGGIO CIOCCOLATO(categoria)',
+    'CHOCAPAINT(categoria)', 'TUNNEL di RAFFREDDAMENTO e RICOPERTURA(categoria)', 'ONE SHOT TUTTUNO(categoria)',
+    'CLUSTER(categoria)', 'CONFETTATRICI BASSINE(categoria)', 'SCIOGLITORI e MISCELATORI(categoria)', 'ESTRUSORI(categoria)',
+    'RAFFINATRICI A SFERE(categoria)', 'TOSTATRICI(categoria)', 'BEAN TO BAR(categoria)', 'LAVORAZIONE FRUTTA SECCA(categoria)',
+    'FONTANE DI CIOCCOLATO(categoria)', 'Selmi One Temperatrice Cioccolato(macchine)','Legend Temperatrice Cioccolato(macchine)',
+    'Color ex Temperatrice Cioccolato(macchine)', 'Plus Ex Temperatrice Cioccolato(macchine)', 'Futura Ex Temperatrice Cioccolato(macchine)',
+    'Top Ex Temperatrice Cioccolato(macchine)', 'Cento Temperatrice Cioccolato(macchine)', 'R200 Legend(macchine)', 'RS200(macchine)', 'Truffle(macchine)',
+    'Automatic Truffle(macchine)', 'R400t Plus(macchine)', 'R600t(macchine)', 'Mould Loader 175(macchine)', 'Moulding Line 275(macchine)',
+    'Smodellatore Automatico(macchine)', 'Injection Plate(macchine)', 'Filler Praline(macchine)', 'Filler Vasi(macchine)', 'Galileo(macchine)', 'Spider(macchine)',
+    'Spider Max(macchine)', 'Smodellatore Automatico(macchine)', 'Tunnel 200/250mm(macchine)', 'Tunnel 300/400mm(macchine)', 'Tunnel 600mm(macchine)', 'Drops System(macchine)',
+    'One Shot Tuttuno 4(macchine)', 'One Shot Tuttuno 9(macchine)', 'Charger 175/275(macchine)', 'Vibra(macchine)','Depositor(macchine)', 'Spinner Exit 175/275(macchine)',
+    'Cluster(macchine)', 'Cluster Teglia(macchine)', 'Comfit(macchine)', 'Comfit Maxi(macchine)', 'Spaysystem(macchine)', 'Tank 200(macchine)', 'Tank 400(macchine)', 'Chocoform(macchine)',
+    'Chiocoliner(macchine)', 'Extrudeer(macchine)', 'Micron 25(macchine)', 'Micron 50(macchine)', 'Tostatrice Roaster 106(macchine)', 'Tostatrice Roaster 120(macchine)',
+    'Winnower(macchine)', 'Grinder Plus(macchine)', 'Conca 100(macchine)', 'Conca 200-400(macchine)', 'Vaglio(macchine)', 'Grinder Plus(macchine)', 'Grain(macchine)', 'Vaglio(macchine)',
+    'Macchia(macchine)', 'Macchia Temperante(macchine)', 'Fontana a muro(macchine)'
+  ];
+
   @override
   void initState() {
     super.initState();
     filteredOptions = options;
     checkboxStates = List.filled(options.length, false); // Stati per le checkbox
+    _search.addListener(() {
+      setState(() {
+        isSearching = _search.text.isNotEmpty;
+        filteredOptions = AllOptions.where((option) => option.toLowerCase().contains(_search.text.toLowerCase())).toList();
+      });
+    });
   }
 
   void _flipIcon() {
@@ -91,55 +116,34 @@ class _SearchEditScreenAdminState extends State<SearchEditScreenAdmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: primary,
-          title: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: neutral,
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: TextField(
-                  controller: _search,
-                  onChanged: _filterOptions,
-                  decoration: InputDecoration(
-                    hintText: "Search...",
-                    border: InputBorder.none,
-                    contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15).copyWith(left: 20),
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const SizedBox(width: 5),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.search, color: primary)),
-                        IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const QrScanMainScreen()),
-                              );
-                            },
-                            icon: const Icon(Icons.qr_code_scanner,
-                                color: primary)),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
         body: Stack(
           children: [
+            Container(
+              padding: EdgeInsets.only( left: 20, right: 20, top: 50, bottom: 20),
+              decoration: BoxDecoration(
+                color: primary,
+              ),
+              child: SearchBar(
+                controller: _search,
+                hintText: "Search...",
+                trailing: <Widget>[
+                  IconButton(onPressed: (){}, icon: const Icon(Icons.search,color: primary)),
+                  IconButton(onPressed: (){
+                    setState(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const QrScanMainScreen()),
+                      );
+                    });
+                  }, icon: const Icon(Icons.qr_code_scanner,color: primary)),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 90),
                   Expanded(
                     child: ListView.builder(
                       itemCount: filteredOptions.length,
