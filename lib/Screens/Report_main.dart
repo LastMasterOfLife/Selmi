@@ -16,22 +16,25 @@ class _ReportMainState extends State<ReportMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: [
-          SizedBox(height: 30,),
-          Text("Riporta gli eroori agli sviluppatori", style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 20
-          ),),
-          buildTextField(_reportInput, 'Report Error'),
-          SizedBox(height: 50,),
-          ElevatedButton(onPressed: (){
-          }, child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Text('Send', style: TextStyle(
-              fontSize: 25,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 30,),
+            Text("Riporta gli eroori agli sviluppatori", style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20
             ),),
-          ))
-        ],
+            buildTextField(_reportInput, 'Report Error'),
+            SizedBox(height: 50,),
+            ElevatedButton(onPressed: (){
+              buildShowDialog(context, "Send Report error", _reportInput.text);
+            }, child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Text('Send', style: TextStyle(
+                fontSize: 25,
+              ),),
+            ))
+          ],
+        ),
       ),
     );
   }
@@ -56,4 +59,30 @@ class _ReportMainState extends State<ReportMain> {
       ),
     );
   }
+}
+
+Future buildShowDialog(context, String titolo, String testo){
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(titolo),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Report Sent"),
+            Text(testo),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Chiudi il popup
+            },
+            child: Text('Chiudi'),
+          ),
+        ],
+      );
+    },
+  );
 }
