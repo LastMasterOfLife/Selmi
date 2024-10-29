@@ -33,8 +33,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final DatabaseReference _database = FirebaseDatabase.instance.ref();
 
-  late String finaluser;
-  late String finalpass;
+  //late String finaluser;
+  //late String finalpass;
   String _data = "Nessun dato ancora"; // Inizializzo il testo di default
 
   @override
@@ -43,18 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _readData();
   }
 
-  /*
-  Future getPreferences() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var usernamePref = prefs.getString('username');
-    var passwordPref = prefs.getString('password');
-    setState(() {
-      finaluser = usernamePref!;
-      finalpass = passwordPref!;
-    });
-  }
-
-   */
 
   // Funzione per scrivere dati nel database
   Future<void> _writeData() async {
@@ -91,7 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void _checkInput() {
     final username = _usernameInput.text;
     final password = _passwordInput.text;
-    //getPreferences();
+
+    // Assicurati che `finaluser` e `finalpass` siano inizializzati
 
     if (username == user && password == user) {
       _navigateTo(HomeScreen(
@@ -113,16 +102,6 @@ class _LoginScreenState extends State<LoginScreen> {
         password: widget.password,
         serialcode: widget.serialcode,
       ));
-    } else if (username == finaluser && password == finalpass) {
-      _navigateTo(HomeScreen(
-        accesso: 'user',
-        name: widget.name,
-        surname: widget.surname,
-        username: widget.username,
-        emaiil: widget.emaiil,
-        password: widget.password,
-        serialcode: widget.serialcode,
-      ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -134,6 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
   }
+
 
   void _navigateTo(Widget page) {
     Navigator.pushReplacement(
