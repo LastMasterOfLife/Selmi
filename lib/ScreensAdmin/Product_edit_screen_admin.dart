@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prove/ScreensAdmin/Product_main_screen_admin.dart';
 
 import '../Colors/color_palette.dart';
+import '../Screens/Add_products.dart';
 
 class ProductEditScreenAdmin extends StatefulWidget {
   final String nome;
@@ -235,7 +236,7 @@ class _ProductEditScreenAdminState extends State<ProductEditScreenAdmin> {
                             ),
                             InkWell(
                               onTap: (){
-
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddProducts()));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
