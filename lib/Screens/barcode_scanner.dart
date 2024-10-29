@@ -14,6 +14,8 @@ class _BarcodeScannerState extends State<BarcodeScanner>with WidgetsBindingObser
   Barcode? _barcode;
   bool hasNavigated = false;
   late MobileScannerController controller;
+  late String immagine;
+
 
   @override
   void initState() {
@@ -25,6 +27,30 @@ class _BarcodeScannerState extends State<BarcodeScanner>with WidgetsBindingObser
       torchEnabled: false,
     );
     _requestCameraPermission();
+  }
+
+  String immageCatch(String nome){
+    if(nome == 'Selmi One Temperatrice Cioccolato'){
+       return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/selmi-one-temperatrice-cioccolato/selmi-one-temperatrice-cioccolato.png";
+    }else if(nome == 'Legend Temperatrice Cioccolato'){
+      return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/legend-temperatrice-cioccolato/legend-temperatrice-cioccolato.png";
+    }
+    else if(nome == 'Color EX Temperatrice Cioccolato'){
+      return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/color-ex-temperatrice-cioccolato/color-ex-temperatrice-cioccolato.png";
+    }
+    else if(nome == 'Plus EX Temperatrice Cioccolato'){
+      return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/plus-ex-temperatrice-cioccolato/plus-ex-temperatrice-cioccolato.png";
+    }
+    else if(nome == 'Futura EX Temperatrice Cioccolato'){
+      return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/futura-ex-temperatrice-cioccolato/futura-ex-temperatrice-cioccolato.png";
+    }
+    else if(nome == 'Top EX Temperatrice Cioccolato'){
+      return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/top-ex-temperatrice-cioccolato/top-ex-temperatrice-cioccolato.png";
+    }
+    else if(nome == 'Cento Temperatrice Cioccolato'){
+      return immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/cento-temperatrice-cioccolato/cento-temperatrice-cioccolato.png";
+    }
+    return  immagine = "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/selmi-one-temperatrice-cioccolato/selmi-one-temperatrice-cioccolato.png";
   }
 
   Future<void> _requestCameraPermission() async {
@@ -61,7 +87,7 @@ class _BarcodeScannerState extends State<BarcodeScanner>with WidgetsBindingObser
   Widget _buildBarcode(Barcode? value) {
     if (value == null) {
       return const Text(
-        'Scan something!',
+        ' ',
         overflow: TextOverflow.fade,
         style: TextStyle(color: Colors.white),
       );
@@ -92,7 +118,7 @@ class _BarcodeScannerState extends State<BarcodeScanner>with WidgetsBindingObser
         MaterialPageRoute(
           builder: (context) => ScanProductScreenGuest(
             nome: barcodeValue,
-            immagine: "https://www.selmi-group.it/img/macchine-temperaggio-cioccolato/selmi-one-temperatrice-cioccolato/selmi-one-temperatrice-cioccolato.png",
+            immagine: immageCatch(barcodeValue),
           ),
         ),
       ).then((_) {

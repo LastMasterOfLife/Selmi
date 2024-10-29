@@ -21,6 +21,9 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
       padding: const EdgeInsets.all(8.0),
       child: Center(
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: neutral,
+          ),
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -28,7 +31,13 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
               ),
             );
           },
-          child: Text(label),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Text(label, style: const TextStyle(
+              fontSize: 25,
+              color: primary
+            ),),
+          ),
         ),
       ),
     );
@@ -37,16 +46,23 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mobile Scanner Example')),
-      body: Center(
-        child: ListView(
-          children: [
-            _buildItem(
-              context,
-              'MobileScanner Simple',
-              const BarcodeScanner(),
-            )
-          ],
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 80,),
+              Image.asset("assets/images/crop_free.png"),
+              SizedBox(height: 180,),
+              _buildItem(context, 'Scan', const BarcodeScanner(),),
+              const SizedBox(height: 20),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25, top: 50),
+                child: _buildManualCodeEntry(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -105,6 +121,8 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
     );
   }
 
+
+   */
   Widget _buildManualCodeEntry() {
     return Container(
       decoration: ShapeDecoration(
@@ -121,8 +139,7 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
           suffixIcon: IconButton(
             icon: Icon(Icons.backspace_outlined, color: primary),
             onPressed: () => setState(() {
-              scannedResult = "";
-              scanBarcode();
+              BarcodeScanner();
             }),
           ),
         ),
@@ -130,5 +147,5 @@ class _QrScanMainScreenGuestState extends State<QrScanMainScreenGuest> {
     );
   }
 
-   */
+
 }
