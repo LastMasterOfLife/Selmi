@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prove/Colors/color_palette.dart';
+import 'package:prove/Screens/Report_main.dart';
 import 'package:provider/provider.dart';
 
 import '../model/Object_class.dart';
@@ -25,9 +26,6 @@ class DocumentMainScreen extends StatefulWidget {
 }
 
 class _DocumentMainScreenState extends State<DocumentMainScreen> {
-
-
-
 
 
   @override
@@ -100,7 +98,9 @@ class _DocumentMainScreenState extends State<DocumentMainScreen> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ElevatedButton(onPressed: (){},
+                        ElevatedButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>ReportMain()));
+                        },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: secondary,
                                 shape: RoundedRectangleBorder(
