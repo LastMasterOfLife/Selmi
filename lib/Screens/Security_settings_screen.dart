@@ -55,7 +55,7 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
           SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: _buildTextField(_emailInput, 'Email', _obscureemail,
+            child: buildTextField(_emailInput, 'Email', obscureText: _obscureemail,
               suffixIcon: IconButton(
                 icon: Image.asset(
                   _obscureemail
@@ -75,7 +75,7 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
           SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: _buildTextField(_passwordInput, 'Password', _obscurePass,
+            child: buildTextField(_passwordInput,'password',obscureText: _obscurePass,
               suffixIcon: IconButton(
                 icon: Image.asset(
                   _obscurePass
@@ -106,7 +106,7 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
             child: TextButton(
               onPressed: () {
                 setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> AccountManagerMainScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> AccountManagerMainScreen(name: '',surname: '',username: '',password: '',serialcode: '',)));
                 });
               },
               child: Text(
@@ -121,28 +121,21 @@ class _SecuritySettingsScreenState extends State<SecuritySettingsScreen> {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String hintText,
-      bool obscureText,
-      {Widget? suffixIcon}) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      decoration: BoxDecoration(
-        color: Colors.white70,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 2, color: primary),
-      ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        enabled: true,
-        style: const TextStyle(color: primary, fontSize: 23),
-        textAlign: TextAlign.left, // Campo di testo allineato a sinistra
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey),
-          suffixIcon: suffixIcon,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+  Widget buildTextField(TextEditingController controller, String labelText,
+      {bool obscureText = false, Widget? suffixIcon}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+      child: SizedBox(
+        child: TextField(
+          controller: controller,
+          obscureText: obscureText,
+          style: const TextStyle(color: primary, fontSize: 23),
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            labelText: labelText,
+            hintStyle: const TextStyle(color: primary),
+            suffixIcon: suffixIcon,
+          ),
         ),
       ),
     );
